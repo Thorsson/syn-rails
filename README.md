@@ -2,6 +2,7 @@ syn-rails
 =========
 
 syn.js is the Standalone Synthetic Event Library.
+-------------------------------------------------
 
 syn-rails is the asset-pipeline provider/wrapper syn.js
 
@@ -19,7 +20,7 @@ Uses of syn.js:
   - move - moving mouse around the page
   - drag - mousedown, then mouse move and then mouseup
 
-Example:
+### Example:
 
 ```javascript
 Syn.click({}, 'message')
@@ -29,7 +30,8 @@ Syn.click({}, 'message')
 ```
 User interactions are called actions. In the example we are clicking on the element with 'message' as id and enter 'Drag me to trash' inside the input, wait for some time (600ms by default) and drag the element to element with 'trash' id.
 
-Ruby on Rails
+### Ruby on Rails
+-------------------------------------------------
 
 To be able to use it inside ruby on rails project you need to add:
 
