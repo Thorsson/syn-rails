@@ -1,4 +1,4 @@
-steal(function(){
+(function(){
 	var extend = function( d, s ) {
 		var p;
 		for (p in s) {
@@ -186,8 +186,8 @@ steal(function(){
 			}
 		},
 		jquery: function( el, fast ) {
-			if ( window.FuncUnit && window.FuncUnit.jQuery ) {
-				return window.FuncUnit.jQuery;
+			if ( window.FuncUnit && window.FuncUnit.jquery ) {
+				return window.FuncUnit.jquery;
 			}
 			if ( el ) {
 				return Syn.helpers.getWindow(el).jQuery || window.jQuery;
@@ -328,15 +328,9 @@ steal(function(){
 		 */
 		isFocusable: function( elem ) {
 			var attributeNode;
-
-			// IE8 Standards doesn't like this on some elements
-			if(elem.getAttributeNode){
-				attributeNode = elem.getAttributeNode("tabIndex")
-			}
-
-			return this.focusable.test(elem.nodeName) || 
-				   (attributeNode && attributeNode.specified) && 
-				    Syn.isVisible(elem);
+			return (this.focusable.test(elem.nodeName) || 
+				((attributeNode = elem.getAttributeNode("tabIndex")) 
+				&& attributeNode.specified)) && Syn.isVisible(elem);
 		},
 		/**
 		 * Returns if an element is visible or not
@@ -383,9 +377,7 @@ steal(function(){
 				return -1;
 			},
 			getWindow: function( element ) {
-				if(element.ownerDocument){
-					return element.ownerDocument.defaultView || element.ownerDocument.parentWindow;
-				}
+				return element.ownerDocument.defaultView || element.ownerDocument.parentWindow;
 			},
 			extend: extend,
 			scrollOffset: function( win , set) {
@@ -537,26 +529,19 @@ steal(function(){
 		},
 		/**
 		 * @attribute support
-		 * 
 		 * Feature detected properties of a browser's event system.
 		 * Support has the following properties:
-		 * 
-		 *   - `backspaceWorks` - typing a backspace removes a character
-		 *   - `clickChanges` - clicking on an option element creates a change event.
-		 *   - `clickSubmits` - clicking on a form button submits the form.
-		 *   - `focusChanges` - focus/blur creates a change event.
-		 *   - `keypressOnAnchorClicks` - Keying enter on an anchor triggers a click.
-		 *   - `keypressSubmits` - enter key submits
-		 *   - `keyCharacters` - typing a character shows up
-		 *   - `keysOnNotFocused` - enters keys when not focused.
-		 *   - `linkHrefJS` - An achor's href JavaScript is run.
-		 *   - `mouseDownUpClicks` - A mousedown followed by mouseup creates a click event.
-		 *   - `mouseupSubmits` - a mouseup on a form button submits the form.
-		 *   - `radioClickChanges` - clicking a radio button changes the radio.
-		 *   - `tabKeyTabs` - A tab key changes tabs.
-		 *   - `textareaCarriage` - a new line in a textarea creates a carriage return.
-		 *   
-		 * 
+		 * <ul>
+		 * 	<li><code>clickChanges</code> - clicking on an option element creates a change event.</li>
+		 *  <li><code>clickSubmits</code> - clicking on a form button submits the form.</li>
+		 *  <li><code>mouseupSubmits</code> - a mouseup on a form button submits the form.</li>
+		 *  <li><code>radioClickChanges</code> - clicking a radio button changes the radio.</li>
+		 *  <li><code>focusChanges</code> - focus/blur creates a change event.</li>
+		 *  <li><code>linkHrefJS</code> - An achor's href JavaScript is run.</li>
+		 *  <li><code>mouseDownUpClicks</code> - A mousedown followed by mouseup creates a click event.</li>
+		 *  <li><code>tabKeyTabs</code> - A tab key changes tabs.</li>
+		 *  <li><code>keypressOnAnchorClicks</code> - Keying enter on an anchor triggers a click.</li>
+		 * </ul>
 		 */
 		support: {
 			clickChanges: false,
@@ -616,7 +601,8 @@ steal(function(){
 				//send the event
 				ret = Syn.dispatch(event, dispatchEl, type, autoPrevent);
 			}
-			
+
+			//run default behavior
 			ret && Syn.support.ready === 2 && Syn.defaults[type] && Syn.defaults[type].call(element, options, autoPrevent);
 			return ret;
 		},
@@ -821,12 +807,24 @@ steal(function(){
 			};
 		},
 		i = 0;
+		for ( ; i < actions.length; i++ ) {
+			makeAction(actions[i]);
+		}
+		/**
+		 * Used for creating and dispatching synthetic events.
+		 * @codestart
+		 * new MVC.Syn('click').send(MVC.$E('id'))
+		 * @codeend
+		 * @constructor Sets up a synthetic event.
+		 * @param {String} type type of event, ex: 'click'
+		 * @param {optional:Object} options
+		 */
+		if ( (window.FuncUnit && window.FuncUnit.jQuery) || window.jQuery ) {
+			((window.FuncUnit && window.FuncUnit.jQuery) || window.jQuery).fn.triggerSyn = function( type, options, callback ) {
+				Syn(type, options, this[0], callback);
+				return this;
+			};
+		}
 
-	for ( ; i < actions.length; i++ ) {
-		makeAction(actions[i]);
-	}
-
-	
-
-	return Syn;
-})
+		window.Syn = Syn;
+})(true);

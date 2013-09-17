@@ -1,5 +1,156 @@
-steal('./synthetic','./browsers.js',function(Syn) {
+(function(){
+	Syn.key.browsers = {
+		webkit : {
+			'prevent':
+			 {"keyup":[],"keydown":["char","keypress"],"keypress":["char"]},
+			'character':
+			 {"keydown":[0,"key"],"keypress":["char","char"],"keyup":[0,"key"]},
+			'specialChars':
+			 {"keydown":[0,"char"],"keyup":[0,"char"]},
+			'navigation':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'special':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'tab':
+			 {"keydown":[0,"char"],"keyup":[0,"char"]},
+			'pause-break':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'caps':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'escape':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'num-lock':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'scroll-lock':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'print':
+			 {"keyup":[0,"key"]},
+			'function':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'\r':
+			 {"keydown":[0,"key"],"keypress":["char","key"],"keyup":[0,"key"]}
+		},
+		gecko : {
+			'prevent':
+			 {"keyup":[],"keydown":["char"],"keypress":["char"]},
+			'character':
+			 {"keydown":[0,"key"],"keypress":["char",0],"keyup":[0,"key"]},
+			'specialChars':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]},
+			'navigation':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]},
+			'special':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'\t':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]},
+			'pause-break':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]},
+			'caps':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'escape':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]},
+			'num-lock':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'scroll-lock':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'print':
+			 {"keyup":[0,"key"]},
+			'function':
+			 {"keydown":[0,"key"],"keyup":[0,"key"]},
+			'\r':
+			 {"keydown":[0,"key"],"keypress":[0,"key"],"keyup":[0,"key"]}
+		},
+		msie : {
+			'prevent':{"keyup":[],"keydown":["char","keypress"],"keypress":["char"]},
+			'character':{"keydown":[null,"key"],"keypress":[null,"char"],"keyup":[null,"key"]},
+			'specialChars':{"keydown":[null,"char"],"keyup":[null,"char"]},
+			'navigation':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'special':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'tab':{"keydown":[null,"char"],"keyup":[null,"char"]},
+			'pause-break':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'caps':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'escape':{"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]},
+			'num-lock':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'scroll-lock':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'print':{"keyup":[null,"key"]},
+			'function':{"keydown":[null,"key"],"keyup":[null,"key"]},
+			'\r':{"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]}	
+		},
+		opera : {
+			'prevent':
+			 {"keyup":[],"keydown":[],"keypress":["char"]},
+			'character':
+			 {"keydown":[null,"key"],"keypress":[null,"char"],"keyup":[null,"key"]},
+			'specialChars':
+			 {"keydown":[null,"char"],"keypress":[null,"char"],"keyup":[null,"char"]},
+			'navigation':
+			 {"keydown":[null,"key"],"keypress":[null,"key"]},
+			'special':
+			 {"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]},
+			'tab':
+			 {"keydown":[null,"char"],"keypress":[null,"char"],"keyup":[null,"char"]},
+			'pause-break':
+			 {"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]},
+			'caps':
+			 {"keydown":[null,"key"],"keyup":[null,"key"]},
+			'escape':
+			 {"keydown":[null,"key"],"keypress":[null,"key"]},
+			'num-lock':
+			 {"keyup":[null,"key"],"keydown":[null,"key"],"keypress":[null,"key"]},
+			'scroll-lock':
+			 {"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]},
+			'print':
+			 {},
+			'function':
+			 {"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]},
+			'\r':
+			 {"keydown":[null,"key"],"keypress":[null,"key"],"keyup":[null,"key"]}	
+		}
+	};
+	
+	Syn.mouse.browsers = {
+		webkit : {"right":{"mousedown":{"button":2,"which":3},"mouseup":{"button":2,"which":3},"contextmenu":{"button":2,"which":3}},
+		          "left":{"mousedown":{"button":0,"which":1},"mouseup":{"button":0,"which":1},"click":{"button":0,"which":1}}},
+		opera: {"right":{"mousedown":{"button":2,"which":3},"mouseup":{"button":2,"which":3}},
+		        "left":{"mousedown":{"button":0,"which":1},"mouseup":{"button":0,"which":1},"click":{"button":0,"which":1}}},
+		msie: {	"right":{"mousedown":{"button":2},"mouseup":{"button":2},"contextmenu":{"button":0}},
+				"left":{"mousedown":{"button":1},"mouseup":{"button":1},"click":{"button":0}}},
+		chrome : {"right":{"mousedown":{"button":2,"which":3},"mouseup":{"button":2,"which":3},"contextmenu":{"button":2,"which":3}},
+				  "left":{"mousedown":{"button":0,"which":1},"mouseup":{"button":0,"which":1},"click":{"button":0,"which":1}}},
+		gecko: {"left":{"mousedown":{"button":0,"which":1},"mouseup":{"button":0,"which":1},"click":{"button":0,"which":1}},
+		        "right":{"mousedown":{"button":2,"which":3},"mouseup":{"button":2,"which":3},"contextmenu":{"button":2,"which":3}}}
+	}
+	
+	//set browser
+	Syn.key.browser = 
+	(function(){
+		if(Syn.key.browsers[window.navigator.userAgent]){
+			return Syn.key.browsers[window.navigator.userAgent];
+		}
+		for(var browser in Syn.browser){
+			if(Syn.browser[browser] && Syn.key.browsers[browser]){
+				return Syn.key.browsers[browser]
+			}
+		}
+		return Syn.key.browsers.gecko;
+	})();
+	
+	Syn.mouse.browser = 
+	(function(){
+		if(Syn.mouse.browsers[window.navigator.userAgent]){
+			return Syn.mouse.browsers[window.navigator.userAgent];
+		}
+		for(var browser in Syn.browser){
+			if(Syn.browser[browser] && Syn.mouse.browsers[browser]){
+				return Syn.mouse.browsers[browser]
+			}
+		}
+		return Syn.mouse.browsers.gecko;
+	})();
+})(true);
+(function(){
 	var h = Syn.helpers,
+		S = Syn,
 
 		// gets the selection of an input or textarea
 		getSelection = function( el ) {
@@ -81,6 +232,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 
 		};
+
 	/**
 	 * @add Syn static
 	 */
@@ -127,124 +279,124 @@ steal('./synthetic','./browsers.js',function(Syn) {
 		 */
 		keycodes: {
 			//backspace
-			'\b': 8,
+			'\b': '8',
 
 			//tab
-			'\t': 9,
+			'\t': '9',
 
 			//enter
-			'\r': 13,
+			'\r': '13',
 
 			//special
-			'shift': 16,
-			'ctrl': 17,
-			'alt': 18,
+			'shift': '16',
+			'ctrl': '17',
+			'alt': '18',
 
 			//weird
-			'pause-break': 19,
-			'caps': 20,
-			'escape': 27,
-			'num-lock': 144,
-			'scroll-lock': 145,
-			'print': 44,
+			'pause-break': '19',
+			'caps': '20',
+			'escape': '27',
+			'num-lock': '144',
+			'scroll-lock': '145',
+			'print': '44',
 
 			//navigation
-			'page-up': 33,
-			'page-down': 34,
-			'end': 35,
-			'home': 36,
-			'left': 37,
-			'up': 38,
-			'right': 39,
-			'down': 40,
-			'insert': 45,
-			'delete': 46,
+			'page-up': '33',
+			'page-down': '34',
+			'end': '35',
+			'home': '36',
+			'left': '37',
+			'up': '38',
+			'right': '39',
+			'down': '40',
+			'insert': '45',
+			'delete': '46',
 
 			//normal characters
-			' ': 32,
-			'0': 48,
-			'1': 49,
-			'2': 50,
-			'3': 51,
-			'4': 52,
-			'5': 53,
-			'6': 54,
-			'7': 55,
-			'8': 56,
-			'9': 57,
-			'a': 65,
-			'b': 66,
-			'c': 67,
-			'd': 68,
-			'e': 69,
-			'f': 70,
-			'g': 71,
-			'h': 72,
-			'i': 73,
-			'j': 74,
-			'k': 75,
-			'l': 76,
-			'm': 77,
-			'n': 78,
-			'o': 79,
-			'p': 80,
-			'q': 81,
-			'r': 82,
-			's': 83,
-			't': 84,
-			'u': 85,
-			'v': 86,
-			'w': 87,
-			'x': 88,
-			'y': 89,
-			'z': 90,
+			' ': '32',
+			'0': '48',
+			'1': '49',
+			'2': '50',
+			'3': '51',
+			'4': '52',
+			'5': '53',
+			'6': '54',
+			'7': '55',
+			'8': '56',
+			'9': '57',
+			'a': '65',
+			'b': '66',
+			'c': '67',
+			'd': '68',
+			'e': '69',
+			'f': '70',
+			'g': '71',
+			'h': '72',
+			'i': '73',
+			'j': '74',
+			'k': '75',
+			'l': '76',
+			'm': '77',
+			'n': '78',
+			'o': '79',
+			'p': '80',
+			'q': '81',
+			'r': '82',
+			's': '83',
+			't': '84',
+			'u': '85',
+			'v': '86',
+			'w': '87',
+			'x': '88',
+			'y': '89',
+			'z': '90',
 			//normal-characters, numpad
-			'num0': 96,
-			'num1': 97,
-			'num2': 98,
-			'num3': 99,
-			'num4': 100,
-			'num5': 101,
-			'num6': 102,
-			'num7': 103,
-			'num8': 104,
-			'num9': 105,
-			'*': 106,
-			'+': 107,
-			'-': 109,
-			'.': 110,
+			'num0': '96',
+			'num1': '97',
+			'num2': '98',
+			'num3': '99',
+			'num4': '100',
+			'num5': '101',
+			'num6': '102',
+			'num7': '103',
+			'num8': '104',
+			'num9': '105',
+			'*': '106',
+			'+': '107',
+			'-': '109',
+			'.': '110',
 			//normal-characters, others
-			'/': 111,
-			';': 186,
-			'=': 187,
-			',': 188,
-			'-': 189,
-			'.': 190,
-			'/': 191,
-			'`': 192,
-			'[': 219,
-			'\\': 220,
-			']': 221,
-			"'": 222,
+			'/': '111',
+			';': '186',
+			'=': '187',
+			',': '188',
+			'-': '189',
+			'.': '190',
+			'/': '191',
+			'`': '192',
+			'[': '219',
+			'\\': '220',
+			']': '221',
+			"'": '222',
 
 			//ignore these, you shouldn't use them
-			'left window key': 91,
-			'right window key': 92,
-			'select key': 93,
+			'left window key': '91',
+			'right window key': '92',
+			'select key': '93',
 
 
-			'f1': 112,
-			'f2': 113,
-			'f3': 114,
-			'f4': 115,
-			'f5': 116,
-			'f6': 117,
-			'f7': 118,
-			'f8': 119,
-			'f9': 120,
-			'f10': 121,
-			'f11': 122,
-			'f12': 123
+			'f1': '112',
+			'f2': '113',
+			'f3': '114',
+			'f4': '115',
+			'f5': '116',
+			'f6': '117',
+			'f7': '118',
+			'f8': '119',
+			'f9': '120',
+			'f10': '121',
+			'f11': '122',
+			'f12': '123'
 		},
 
 		// what we can type in
@@ -295,20 +447,20 @@ steal('./synthetic','./browsers.js',function(Syn) {
 		// retrieves a description of what events for this character should look like
 		data: function( key ) {
 			//check if it is described directly
-			if ( Syn.key.browser[key] ) {
-				return Syn.key.browser[key];
+			if ( S.key.browser[key] ) {
+				return S.key.browser[key];
 			}
-			for ( var kind in Syn.key.kinds ) {
-				if ( h.inArray(key, Syn.key.kinds[kind]) > -1 ) {
-					return Syn.key.browser[kind]
+			for ( var kind in S.key.kinds ) {
+				if ( h.inArray(key, S.key.kinds[kind]) > -1 ) {
+					return S.key.browser[kind]
 				}
 			}
-			return Syn.key.browser.character
+			return S.key.browser.character
 		},
 
 		//returns the special key if special
 		isSpecial: function( keyCode ) {
-			var specials = Syn.key.kinds.special;
+			var specials = S.key.kinds.special;
 			for ( var i = 0; i < specials.length; i++ ) {
 				if ( Syn.keycodes[specials[i]] == keyCode ) {
 					return specials[i];
@@ -347,13 +499,6 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				result.charCode = charCode;
 			}
 
-			// all current browsers have which property to normalize keyCode/charCode
-			if(result.keyCode){
-				result.which = result.keyCode;
-			} else {
-				result.which = result.charCode;
-			}
-
 
 			return result
 		},
@@ -365,8 +510,6 @@ steal('./synthetic','./browsers.js',function(Syn) {
 			'function': ['f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11', 'f12']
 		},
 		//returns the default function
-		// some keys have default functions
-		// some 'kinds' of keys have default functions
 		getDefault: function( key ) {
 			//check if it is described directly
 			if ( Syn.key.defaults[key] ) {
@@ -386,7 +529,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 					key = key.match(/\d+/)[0]
 				}
 
-				if ( force || (!Syn.support.keyCharacters && Syn.typeable.test(this.nodeName)) ) {
+				if ( force || (!S.support.keyCharacters && Syn.typeable.test(this.nodeName)) ) {
 					var current = this.value,
 						before = current.substr(0, sel.start),
 						after = current.substr(sel.end),
@@ -394,7 +537,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 					this.value = before + character + after;
 					//handle IE inserting \r\n
-					var charLength = character == "\n" && Syn.support.textareaCarriage ? 2 : character.length;
+					var charLength = character == "\n" && S.support.textareaCarriage ? 2 : character.length;
 					Syn.selectText(this, before.length + charLength)
 				}
 			},
@@ -456,7 +599,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 			},
 			'\b': function( options, scope, key, force, sel ) {
 				//this assumes we are deleting from the end
-				if (!Syn.support.backspaceWorks && Syn.typeable.test(this.nodeName) ) {
+				if (!S.support.backspaceWorks && Syn.typeable.test(this.nodeName) ) {
 					var current = this.value,
 						before = current.substr(0, sel.start),
 						after = current.substr(sel.end);
@@ -474,7 +617,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				}
 			},
 			'delete': function( options, scope, key, force, sel ) {
-				if (!Syn.support.backspaceWorks && Syn.typeable.test(this.nodeName) ) {
+				if (!S.support.backspaceWorks && Syn.typeable.test(this.nodeName) ) {
 					var current = this.value,
 						before = current.substr(0, sel.start),
 						after = current.substr(sel.end);
@@ -491,11 +634,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 				var nodeName = this.nodeName.toLowerCase()
 				// submit a form
-				if (nodeName == 'input' ) {
-					Syn.trigger("change", {}, this);
-				}
-				
-				if (!Syn.support.keypressSubmits && nodeName == 'input' ) {
+				if (!S.support.keypressSubmits && nodeName == 'input' ) {
 					var form = Syn.closest(this, "form");
 					if ( form ) {
 						Syn.trigger("submit", {}, form);
@@ -503,11 +642,11 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 				}
 				//newline in textarea
-				if (!Syn.support.keyCharacters && nodeName == 'textarea' ) {
+				if (!S.support.keyCharacters && nodeName == 'textarea' ) {
 					Syn.key.defaults.character.call(this, options, scope, "\n", undefined, sel)
 				}
 				// 'click' hyperlinks
-				if (!Syn.support.keypressOnAnchorClicks && nodeName == 'a' ) {
+				if (!S.support.keypressOnAnchorClicks && nodeName == 'a' ) {
 					Syn.trigger("click", {}, this);
 				}
 			},
@@ -616,9 +755,6 @@ steal('./synthetic','./browsers.js',function(Syn) {
 			},
 			'shift': function() {
 				return null;
-			},
-			'ctrl': function() {
-				return null;
 			}
 		}
 	});
@@ -637,7 +773,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				// if this browsers supports writing keys on events
 				// but doesn't write them if the element isn't focused
 				// focus on the element (ignored if already focused)
-				if ( Syn.support.keyCharacters && !Syn.support.keysOnNotFocused ) {
+				if ( S.support.keyCharacters && !S.support.keysOnNotFocused ) {
 					element.focus()
 				}
 			}
@@ -660,7 +796,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				//don't change the orignial
 				options = h.extend({}, options)
 				if ( options.character ) {
-					h.extend(options, Syn.key.options(options.character, type));
+					h.extend(options, S.key.options(options.character, type));
 					delete options.character;
 				}
 
@@ -741,9 +877,8 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				return;
 			}
 
-			// keep reference to current activeElement
-			var activeElement = h.getWindow(element).document.activeElement,			
-				caret = Syn.typeable.test(element.nodeName) && getSelection(element),
+
+			var caret = Syn.typeable.test(element.nodeName) && getSelection(element),
 				key = convert[options] || options,
 				// should we run default events
 				runDefaults = Syn.trigger('keydown', key, element),
@@ -756,8 +891,9 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 				// the result of the default event
 				defaultResult,
-				
-				keypressOptions = Syn.key.options(key, 'keypress');
+
+				// options for keypress
+				keypressOptions = Syn.key.options(key, 'keypress')
 
 
 				if ( runDefaults ) {
@@ -766,11 +902,6 @@ steal('./synthetic','./browsers.js',function(Syn) {
 						defaultResult = getDefault(key).call(element, keypressOptions, h.getWindow(element), key, undefined, caret)
 					} else {
 						//do keypress
-						// check if activeElement changed b/c someone called focus in keydown
-						if( activeElement !== h.getWindow(element).document.activeElement ) {
-							element = h.getWindow(element).document.activeElement;
-						}
-						
 						runDefaults = Syn.trigger('keypress', keypressOptions, element)
 						if ( runDefaults ) {
 							defaultResult = getDefault(key).call(element, keypressOptions, h.getWindow(element), key, undefined, caret)
@@ -779,11 +910,6 @@ steal('./synthetic','./browsers.js',function(Syn) {
 				} else {
 					//canceled ... possibly don't run keypress
 					if ( keypressOptions && h.inArray('keypress', prevent.keydown) == -1 ) {
-						// check if activeElement changed b/c someone called focus in keydown
-						if( activeElement !== h.getWindow(element).document.activeElement ) {
-							element = h.getWindow(element).document.activeElement;
-						}
-						
 						Syn.trigger('keypress', keypressOptions, element)
 					}
 				}
@@ -884,7 +1010,7 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 		form.onsubmit = function( ev ) {
 			if ( ev.preventDefault ) ev.preventDefault();
-			Syn.support.keypressSubmits = true;
+			S.support.keypressSubmits = true;
 			ev.returnValue = false;
 			return false;
 		};
@@ -894,39 +1020,36 @@ steal('./synthetic','./browsers.js',function(Syn) {
 
 
 		Syn.trigger("keypress", "a", inputter);
-		Syn.support.keyCharacters = inputter.value == "a";
+		S.support.keyCharacters = inputter.value == "a";
 
 
 		inputter.value = "a";
 		Syn.trigger("keypress", "\b", inputter);
-		Syn.support.backspaceWorks = inputter.value == "";
+		S.support.backspaceWorks = inputter.value == "";
 
 
 
 		inputter.onchange = function() {
-			Syn.support.focusChanges = true;
+			S.support.focusChanges = true;
 		}
 		inputter.focus();
 		Syn.trigger("keypress", "a", inputter);
 		form.childNodes[5].focus(); // this will throw a change event
 		Syn.trigger("keypress", "b", inputter);
-		Syn.support.keysOnNotFocused = inputter.value == "ab";
+		S.support.keysOnNotFocused = inputter.value == "ab";
 
 		//test keypress \r on anchor submits
-		Syn.bind(anchor, "click", function( ev ) {
+		S.bind(anchor, "click", function( ev ) {
 			if ( ev.preventDefault ) ev.preventDefault();
-			Syn.support.keypressOnAnchorClicks = true;
+			S.support.keypressOnAnchorClicks = true;
 			ev.returnValue = false;
 			return false;
 		})
 		Syn.trigger("keypress", "\r", anchor);
 
-		Syn.support.textareaCarriage = textarea.value.length == 4;
-		
+		S.support.textareaCarriage = textarea.value.length == 4
 		document.documentElement.removeChild(div);
 
-		Syn.support.ready++;
+		S.support.ready++;
 	})();
-	return Syn;
-	
-});
+})(true);

@@ -1,4 +1,4 @@
-steal('../synthetic.js',function(Syn) {
+(function() {
 	
 	// check if elementFromPageExists
 	(function() {
@@ -131,8 +131,8 @@ steal('../synthetic.js',function(Syn) {
 			var j = Syn.jquery()(el),
 				o = j.offset();
 			return {
-				pageX: o.left + (j.outerWidth() / 2),
-				pageY: o.top + (j.outerHeight() / 2)
+				pageX: o.left + (j.width() / 2),
+				pageY: o.top + (j.height() / 2)
 			}
 		},
 		convertOption = function( option, win, from ) {
@@ -318,5 +318,4 @@ steal('../synthetic.js',function(Syn) {
 
 			}
 		})
-	return Syn;
-});
+}());

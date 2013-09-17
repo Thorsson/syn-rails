@@ -1,5 +1,5 @@
-steal('./synthetic',function(Syn) {
-//handles mosue events
+(function(){
+	//handles mouse events
 
 	var h = Syn.helpers,
 		getWin = h.getWindow;
@@ -11,18 +11,16 @@ steal('./synthetic',function(Syn) {
 		},
 		click: function() {
 			// prevents the access denied issue in IE if the click causes the element to be destroyed
-			var element = this, href, type, radioChanged, nodeName, scope;
+			var element = this;
 			try {
-				href = element.href;
-				type = element.type;
-				createChange = Syn.data(element, "createChange");
-				radioChanged = Syn.data(element, "radioChanged");
-				scope = getWin(element);
-				nodeName = element.nodeName.toLowerCase();
+				element.nodeType;
 			} catch (e) {
 				return;
 			}
 			//get old values
+			var href, radioChanged = Syn.data(element, "radioChanged"),
+				scope = getWin(element),
+				nodeName = element.nodeName.toLowerCase();
 			
 			//this code was for restoring the href attribute to prevent popup opening
 			//if ((href = Syn.data(element, "href"))) {
@@ -30,9 +28,9 @@ steal('./synthetic',function(Syn) {
 			//}
 
 			//run href javascript
-			if (!Syn.support.linkHrefJS && /^\s*javascript:/.test(href) ) {
+			if (!Syn.support.linkHrefJS && /^\s*javascript:/.test(element.href) ) {
 				//eval js
-				var code = href.replace(/^\s*javascript:/, "")
+				var code = element.href.replace(/^\s*javascript:/, "")
 
 				//try{
 				if ( code != "//" && code.indexOf("void(0)") == -1 ) {
@@ -45,7 +43,7 @@ steal('./synthetic',function(Syn) {
 			}
 
 			//submit a form
-			if (!(Syn.support.clickSubmits) && (nodeName == "input" && type == "submit") || nodeName == 'button' ) {
+			if (!(Syn.support.clickSubmits) && (nodeName == "input" && element.type == "submit") || nodeName == 'button' ) {
 
 				var form = Syn.closest(element, "form");
 				if ( form ) {
@@ -54,13 +52,14 @@ steal('./synthetic',function(Syn) {
 
 			}
 			//follow a link, probably needs to check if in an a.
-			if ( nodeName == "a" && element.href && !/^\s*javascript:/.test(href) ) {
-				scope.location.href = href;
+			if ( nodeName == "a" && element.href && !/^\s*javascript:/.test(element.href) ) {
+
+				scope.location.href = element.href;
 
 			}
 
 			//change a checkbox
-			if ( nodeName == "input" && type == "checkbox" ) {
+			if ( nodeName == "input" && element.type == "checkbox" ) {
 
 				//if(!Syn.support.clickChecks && !Syn.support.changeChecks){
 				//	element.checked = !element.checked;
@@ -71,13 +70,13 @@ steal('./synthetic',function(Syn) {
 			}
 
 			//change a radio button
-			if ( nodeName == "input" && type == "radio" ) { // need to uncheck others if not checked
+			if ( nodeName == "input" && element.type == "radio" ) { // need to uncheck others if not checked
 				if ( radioChanged && !Syn.support.radioClickChanges ) {
 					Syn.trigger("change", {}, element);
 				}
 			}
 			// change options
-			if ( nodeName == "option" && createChange ) {
+			if ( nodeName == "option" && Syn.data(element, "createChange") ) {
 				Syn.trigger("change", {}, element.parentNode); //does not bubble
 				Syn.data(element, "createChange", false)
 			}
@@ -282,5 +281,4 @@ steal('./synthetic',function(Syn) {
 		window.__synthTest = oldSynth;
 		Syn.support.ready++;
 	})();
-	return Syn;
-});
+})(true);
